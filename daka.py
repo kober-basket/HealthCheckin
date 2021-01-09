@@ -2,9 +2,6 @@
 import requests, json, re
 import time, datetime, os, sys
 import getpass
-# from halo import Halo
-# from apscheduler.schedulers.blocking import BlockingScheduler
-# 删除定时模块
 
 # 环境变量
 # 统一认证学号
@@ -156,15 +153,11 @@ def main():
     """
     start_time = ("\n[Time] %s" %datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # print("🚌 打卡任务启动")
-    # spinner = Halo(text='Loading', spinner='dots')
-    # spinner.start('正在新建打卡实例...')
-    dk = DaKa()
-    # spinner.succeed('已新建打卡实例')
 
-    # spinner.start(text='登录到浙大统一身份认证平台...')
+    dk = DaKa()
+
     try:
         dk.login()
-        # spinner.succeed('已登录到浙大统一身份认证平台')
     except Exception as err:
         # spinner.fail(str(err))
         return
@@ -172,25 +165,20 @@ def main():
     # spinner.start(text='正在获取个人信息...')
     try:
         dk.get_info()
-        # spinner.succeed('%s %s同学, 你好~' %(dk.info['number'], dk.info['name']))
         personal_info = ('%s %s同学, 你好~' %(dk.info['number'], dk.info['name']))
     except Exception as err:
         send_message(title='获取信息失败，请手动打卡，更多信息:', text=str(err))
-        # spinner.fail('获取信息失败，请手动打卡，更多信息: ' + str(err))
         return
 
-    # spinner.start(text='正在为您打卡打卡打卡')
+    # spinner.start(text='正在为您打卡')
     try:
         res = dk.post()
         if str(res['e']) == '0':
             send_message(title='打卡成功!', text=start_time+'\n\n'+personal_info)
-            # spinner.stop_and_persist(symbol='🦄 '.encode('utf-8'), text='已为您打卡成功！')
         else:
             send_message(title=res['m'])
-            # spinner.stop_and_persist(symbol='🦄 '.encode('utf-8'), text=res['m'])
     except:
         send_message(title='数据提交失败')
-        # spinner.fail('数据提交失败')
         return 
 
 
