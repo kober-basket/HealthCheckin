@@ -10,7 +10,7 @@ username = os.environ["USERNAME"]
 # 统一认证密码
 password = os.environ["PASSWORD"]
 # password = ''
-# server酱的sckey
+# DingTalk的sckey
 sckey = os.environ["PUSH_KEY"]
 # sckey = ''
 # customize address
@@ -18,9 +18,9 @@ sckey = os.environ["PUSH_KEY"]
 
 def send_message(title='无效', text=''):
     if text == '':
-        requests.get('https://sc.ftqq.com/' + sckey + '.send?text=' + title)
+        requests.get('https://api.zwya.ga/dingtalk/send?token=' + sckey + '&title=' + title)
     else:
-        requests.get('https://sc.ftqq.com/' + sckey + '.send?text=' + title + '&desp=' + text)
+        requests.get('https://api.zwya.ga/dingtalk/send?card=1&token=' + sckey + '&title=' + title + '&text=' + text)
     return
 
 class DaKa(object):
@@ -174,7 +174,7 @@ def main():
     try:
         res = dk.post()
         if str(res['e']) == '0':
-            send_message(title='打卡成功!', text=start_time+'\n\n'+personal_info)
+            send_message(title='打卡🎈成功!', text=start_time+'\n\n'+personal_info)
         else:
             send_message(title=res['m'])
     except:
