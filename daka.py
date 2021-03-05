@@ -177,7 +177,7 @@ def main():
         if str(res['e']) == '0':
             send_message(title='打卡🎈成功!', text=start_time+'\n\n'+personal_info+'\n\n From HealthCheck.')
         else:
-            send_message(title=res['m'])
+            send_message(title='健康打卡通知', text=res['m']+'[Check here](https://healthreport.zju.edu.cn/ncov/wap/default/index)')
     except:
         send_message(title='数据提交失败')
         return 
