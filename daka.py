@@ -17,7 +17,7 @@ sckey = os.environ["PUSH_KEY"]
 # todo
 
 def send_message(title='无效', text=''):
-    title += ' From Health Check';
+    title += ' -- From HealthCheck';
     if text == '':
         requests.get('https://api.zwya.ga/dingtalk/send?token=' + sckey + '&title=' + title)
     else:
@@ -175,7 +175,7 @@ def main():
     try:
         res = dk.post()
         if str(res['e']) == '0':
-            send_message(title='打卡🎈成功!', text=start_time+'\n\n'+personal_info)
+            send_message(title='打卡🎈成功!', text=start_time+'\n\n'+personal_info+'\n\n From HealthCheck.')
         else:
             send_message(title=res['m'])
     except:
