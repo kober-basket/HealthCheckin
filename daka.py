@@ -60,7 +60,6 @@ class DaKa(object):
 
         # check if login successfully
         if '统一身份认证' in res.content.decode():
-            send_message(title='登录失败，请核实账号密码重新登录')
             raise LoginError('登录失败，请核实账号密码重新登录')
         return self.sess
     
@@ -85,7 +84,6 @@ class DaKa(object):
             if len(old_infos) != 0:
                 old_info = json.loads(old_infos[0])
             else:
-                send_message(title='未发现缓存信息，请先至少手动成功打卡一次再运行脚本')
                 raise RegexMatchError("未发现缓存信息，请先至少手动成功打卡一次再运行脚本")
 
             new_info_tmp = json.loads(re.findall(r'def = ({[^\n]+})', html)[0])
@@ -93,10 +91,8 @@ class DaKa(object):
             name = re.findall(r'realname: "([^\"]+)",', html)[0]
             number = re.findall(r"number: '([^\']+)',", html)[0]
         except IndexError as err:
-            send_message(title='Relative info not found in html with regex')
             raise RegexMatchError('Relative info not found in html with regex')
         except json.decoder.JSONDecodeError as err:
-            send_message(title='JSON decode error')
             raise DecodeError('JSON decode error')
 
         new_info = old_info.copy()
