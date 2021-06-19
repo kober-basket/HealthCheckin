@@ -14,9 +14,9 @@ password = os.environ["PASSWORD"]
 sckey = os.environ["PUSH_KEY"]
 def send_message(title='无效', text=''):
     if text == '':
-        requests.post('https://api.zwya.ga/dingtalk/send?token=' + sckey + '&title=健康打卡通知&text=健康打卡通知 \n\n' + title)
+        requests.post('https://api.animo.top/dingtalk/send?token=' + sckey + '&title=健康打卡通知&text=健康打卡通知 \n\n' + title)
     else:
-        requests.post('https://api.zwya.ga/dingtalk/send?card=1&token=' + sckey + '&title=' + title + '&text=' + text)
+        requests.post('https://api.animo.top/dingtalk/send?card=1&token=' + sckey + '&title=' + title + '&text=' + text)
     return
 
 class HitCarder(object):
