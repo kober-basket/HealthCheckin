@@ -10,13 +10,15 @@ username = os.environ["USERNAME"]
 # 统一认证密码
 password = os.environ["PASSWORD"]
 # password = ''
-# DingTalk的sckey
+# DingTalk的sckey和加签信息
 sckey = os.environ["PUSH_KEY"]
+secret = os.environ["PUSH_SECRET"]
+
 def send_message(title='无效', text=''):
     if text == '':
-        requests.post('https://api.animo.top/dingtalk/send?token=' + sckey + '&title=健康打卡通知&text=健康打卡通知 \n\n' + title)
+        requests.post('https://api.animo.top/dingtalk/send?token=' + sckey + '&secret=' + secret + '&title=健康打卡通知&text=健康打卡通知 \n\n' + title)
     else:
-        requests.post('https://api.animo.top/dingtalk/send?card=1&token=' + sckey + '&title=' + title + '&text=' + text)
+        requests.post('https://api.animo.top/dingtalk/send?card=1&token=' + sckey + '&secret=' + secret + '&title=' + title + '&text=' + text)
     return
 
 class HitCarder(object):
